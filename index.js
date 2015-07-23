@@ -5,7 +5,7 @@ var gutil = require('gulp-util');
 var path = require('path');
 var stringify = require('json-stable-stringify');
 var through = require('through2');
-var Translations = require('./modules/translations.js')
+var Translations = require('./modules/translations.js');
 
 /**
  * Constants
@@ -219,7 +219,7 @@ function angularTranslate(fileName, options) {
                      * @private
                     */
                     var _recurseObject = function (data) {
-                        var currentArray = new Array();
+                        var currentArray = [];
                         if (_.isObject(data) || _.isArray(data.attr)) {
                             for (var attr in data) {
                                 // if (_.isString(data[attr]) && _.indexOf(jsonSrcName, attr) !== -1) {
