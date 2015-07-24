@@ -1,6 +1,7 @@
 'use strict';
 var _ = require('lodash');
 var chalk = require('chalk');
+var fs = require('fs');
 var gutil = require('gulp-util');
 var path = require('path');
 var stringify = require('json-stable-stringify');
@@ -37,7 +38,6 @@ function angularTranslate (options) {
      * Set all needed variables
      */
     var defaultLang = options.defaultLang || '.',
-        // interpolation = options.interpolation || {startDelimiter: '{{', endDelimiter: '}}'},
         nullEmpty = options.nullEmpty || false,
         namespace = options.namespace || false,
         prefix = options.prefix || '',
@@ -48,6 +48,40 @@ function angularTranslate (options) {
 
     var firstFile,
         results = {};
+
+
+    function mergeTranslations(results, lang, target) {
+        /**
+         * Create translation object
+         */
+        var _translation = new Translations({
+                "safeMode": safeMode,
+                "tree": namespace,
+                "nullEmpty": nullEmpty
+            }, results),
+            isDefaultLang = (defaultLang === lang),
+            translations = {},
+            json = {},
+            stats, statsString;
+
+            try {
+                var data = fs.readFileSync(path.join(target, lang + '.json'));
+                json = JSON.parse(data);
+                translations = _translation.getMergedTranslations(Translations.flatten(json), isDefaultLang);
+            }
+            catch (err) {
+                translations = _translation.getMergedTranslations({}, isDefaultLang);
+            }
+
+            stats = _translation.getStats();
+            statsString = lang + " statistics: " +
+                " Updated: " + stats.updated +
+                " / Deleted: " + stats.deleted +
+                " / New: " + stats.new;
+            gutil.log(statsString);
+
+            return translations;
+    }
 
     /**
      * Gulp Angular Translate start processing
@@ -69,48 +103,35 @@ function angularTranslate (options) {
         }
 
         if (file.isBuffer()) {
-
             /**
              * Start extraction of translations
              */
             var content = file.contents.toString();
             var extract = new ExtractTranslations(options.interpolation, customRegex, content);
-            results = extract.process();
-
-            /**
-             * Create translation object
-             */
-            var _translation = new Translations({
-                "safeMode": safeMode,
-                "tree": namespace,
-                "nullEmpty": nullEmpty
-                }, results);
-
-            /**
-             * Gather translations
-             */
-            results = _translation;
+            _.assign(results, extract.process());
         }
 
-        callback(null, file);
-    }, function (cb) {
+        callback();
+    }, function (callback) {
         var self = this;
 
         if (!firstFile) {
-            cb();
+            callback();
             return;
         }
 
+        var translations = {};
         options.lang.forEach(function (lang) {
+            translations = mergeTranslations(results, lang, firstFile.base);
             self.push(new gutil.File({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
                 path: path.join(firstFile.base, lang + '.json'),
-                contents: new Buffer(JSON.stringify(results, null, 4))
+                contents: new Buffer(Helpers.customStringify(translations))
             }));
         });
 
-        cb();
+        callback();
     });
 }
 
