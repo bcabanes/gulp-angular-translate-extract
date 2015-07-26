@@ -93,7 +93,7 @@ function angularTranslate (options) {
                 cwd: firstFile.cwd,
                 base: firstFile.base,
                 path: path.join(destinationPath, prefix + lang + suffix),
-                contents: new Buffer(Helpers.customStringify(translations))
+                contents: new Buffer(Helpers.customStringify(translations, options.stringifyOptions))
             }));
         });
 
