@@ -32,6 +32,11 @@ MergeTranslations.prototype.process = function(results, lang) {
             nullEmpty: this.nullEmpty
         }, results);
 
+    /**
+     * Default language test
+     */
+    this.isDefaultLang = (this.defaultLang === lang);
+
     try {
         var data = fs
             .readFileSync(path.join(this.destinationPath, lang + '.json'));
