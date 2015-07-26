@@ -1,0 +1,64 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>grunt-angular-translate test page</title>
+  <meta charset="utf-8"/>
+</head>
+
+<body>
+
+<!--
+  TEST CASE - Filter HTML
+  Interpolation: [[ ]]
+  Simple quote
+  Variables
+  Spaces
+  Multiple occurences on same row
+-->
+<header style="font-family:'Helvetica Neue'">
+  <h1 style="color:red">[['HtmlFilterSimpleQuote[] interp\'olation [[xx]]' | translate ]]</h1>
+  <h2>[['HtmlFilterSimpleQuote[] on same line 1/2'| translate:'{var : 1}']] - [['HtmlFilterSimpleQuote[] on same line 2/2'|translate]]</h2><span>[[angularJSNumber]]</span>
+</header>
+
+<!--
+  TEST CASE - Filter HTML
+  Interpolation: {{ }}
+  Double quote
+  Variables
+  Spaces
+  Multiple occurences on same row
+-->
+<header style="font-family:'Helvetica Neue'">
+  <h1 style="color:red">{{"HtmlFilterDoubleQuote{} interp\"olation {{xx}}" | translate }}</h1>
+  <h2>{{"HtmlFilterDoubleQuote{} {{var}}on same line 1/2"| translate:'{var : 1}'}} - {{"HtmlFilterDoubleQuote{} on same line 2/2"|translate}}</h2><span>{{angularJSNumber}}</span>
+</header>
+
+<!--
+  TEST CASE - Directive HTML plural
+-->
+<article tt-default="'MY.CUSTOM.REGEX'|translate">
+  <h1>Our title text</h1>
+  <span angular-plural-extract="['HtmlDirectivePluralSecond for one!','# HtmlDirectivePluralSecond for others!']" translate="HtmlDirectivePluralSecond" translate-values="{NB: X}" translate-interpolation="messageformat"></span>
+  <span translate="HtmlDirectivePluralFirst" angular-plural-extract="['HtmlDirectivePluralFirst for one!','# HtmlDirectivePluralFirst for others!']"  translate-values="{NB: X}" translate-interpolation="messageformat"></span>
+  <span translate="HtmlDirectiveStandalone"></span>
+</article>
+
+<!--
+  TEST CASE - ng-bind-html
+-->
+<p>
+  <span style="text-align:center" ng-bind-html="'HtmlNgBindHtml Key \' 1/1'|translate"></span>
+</p>
+
+<!--
+  TEST CASE - Directive HTML translate
+-->
+<p>
+  <span translate style="text-align:center">HtmlDirective 1/2 &é"'(-è_çà)=$^ù!:;,}@^`[{#~@Ùô</span> - <span translate style="text-align:center">HtmlDirective 2/2</span>
+</p>
+
+</body>
+
+</html>
