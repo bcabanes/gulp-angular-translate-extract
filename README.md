@@ -1,4 +1,4 @@
-# gulp-angular-translate
+# gulp-angular-translate-extract
 Gulp version of [grunt-angular-translate](https://github.com/angular-translate/grunt-angular-translate).
 Simply extract all the translation keys for [angular-translate](https://github.com/PascalPrecht/angular-translate) project created by [Pascal Precht](https://github.com/PascalPrecht).
 
