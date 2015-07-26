@@ -1,5 +1,5 @@
 # gulp-angular-translate
-Gulp version of grunt-angular-translate.
+Gulp version of [grunt-angular-translate](https://github.com/angular-translate/grunt-angular-translate).
 Simply extract all the translation keys for `angular-translate` project.
 
 ## Getting started
@@ -66,7 +66,6 @@ To know all options available, please read the documentation ([here](#Options)).
 
 This is all options supported by gulp-angular-translate:
 
-- [src](#src)
 - [nullEmpty](#nullempty-v026)
 - [namespace](#namespace-v026)
 - [interpolation](#interpolation)
@@ -77,15 +76,6 @@ This is all options supported by gulp-angular-translate:
 - [dest](#dest)
 - [safeMode](#safeMode)
 - [stringifyOptions](#stringifyOptions)
-
-#### src
-
-Type: `Array`
-Default: `undefined`
-
-Example: `[ 'src/**/*.js' ]`
-
-Define a file list to parse for extract translation.
 
 #### nullEmpty (v0.2.6)
 
