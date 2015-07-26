@@ -18,7 +18,7 @@ var Translations = require('./modules/translations');
 /**
  * Constants
  */
-const PLUGIN_NAME = 'gulp-angular-translate';
+var PLUGIN_NAME = 'gulp-angular-translate';
 
 /**
  * Angular Translate
