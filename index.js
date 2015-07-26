@@ -41,7 +41,8 @@ function angularTranslate (options) {
     var destinationPath = options.dest || './i18nextract',
         firstFile,
         prefix = options.prefix || '',
-        results = {};
+        results = {},
+        suffix = options.suffix || '.json';
 
     /**
      * Prepare merge process
@@ -91,7 +92,7 @@ function angularTranslate (options) {
             self.push(new gutil.File({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
-                path: path.join(destinationPath, prefix + lang + '.json'),
+                path: path.join(destinationPath, prefix + lang + suffix),
                 contents: new Buffer(Helpers.customStringify(translations))
             }));
         });

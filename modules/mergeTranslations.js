@@ -19,6 +19,7 @@ function MergeTranslations(options) {
     this.nullEmpty = options.nullEmpty || false;
     this.prefix = options.prefix || '';
     this.safeMode = !!options.safeMode;
+    this.suffix = options.suffix || '.json';
     this.translations = {};
     this.tree = options.namespace || false;
 }
