@@ -1,6 +1,6 @@
 # gulp-angular-translate
 Gulp version of [grunt-angular-translate](https://github.com/angular-translate/grunt-angular-translate).
-Simply extract all the translation keys for `angular-translate` project.
+Simply extract all the translation keys for [angular-translate](https://github.com/PascalPrecht/angular-translate) project created by [Pascal Precht](https://github.com/PascalPrecht).
 
 ## Getting started
 Install this gulp plugin next to your project. Require [gulpjs][getting_started].
@@ -193,7 +193,28 @@ Default: `false`
 If stringifyOptions is set to `true` the output will be sort (case insensitive).
 If stringifyOptions is an `object`, you can easily check [json-stable-stringify](https://github.com/substack/json-stable-stringify) README.
 
+## License
 
+The MIT License (MIT)
+
+Copyright (c) 2015 Benjamin Cabanes
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## Notes
 To use ES6 `const` with `'strict mode'` and more generally ES6 features, run
