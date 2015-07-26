@@ -38,9 +38,8 @@ function angularTranslate (options) {
     /**
      * Set all needed variables
      */
-    var destinationPath = options.dest || './i18nextract';
-
-    var firstFile,
+    var destinationPath = options.dest || './i18nextract',
+        firstFile,
         results = {};
 
     /**
