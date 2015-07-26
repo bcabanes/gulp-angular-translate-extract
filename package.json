@@ -1,7 +1,7 @@
 {
   "name": "gulp-angular-translate",
-  "version": "0.0.1",
-  "description": "Gulp version of grunt-angular-translate.",
+  "version": "0.1.0",
+  "description": "Gulp version of grunt-angular-translate. Simply extract all the translation keys for angular-translate project created by Pascal Precht.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +11,15 @@
     "url": "https://github.com/bcabanes/gulp-angular-translate.git"
   },
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "AngularJS",
+    "angular-translate",
+    "gulp",
+    "javascript",
+    "js",
+    "translate",
+    "i18n",
+    "localisation"
   ],
   "author": "Ben",
   "license": "MIT",
