@@ -10,8 +10,9 @@ var through = require('through2');
 /**
  * Interns
  */
-var ExtractTranslations = require('./modules/extractTranslations.js');
+var ExtractTranslations = require('./modules/extractTranslations');
 var Helpers = require('./modules/helpers');
+var MergeTranslations = require('./modules/mergeTranslations');
 var Translations = require('./modules/translations');
 
 /**
@@ -50,39 +51,10 @@ function angularTranslate (options) {
     var firstFile,
         results = {};
 
-
-    function mergeTranslations(results, lang, target) {
-        /**
-         * Create translation object
-         */
-        var _translation = new Translations({
-                "safeMode": safeMode,
-                "tree": namespace,
-                "nullEmpty": nullEmpty
-            }, results),
-            isDefaultLang = (defaultLang === lang),
-            translations = {},
-            json = {},
-            stats, statsString;
-
-            try {
-                var data = fs.readFileSync(path.join(target, lang + '.json'));
-                json = JSON.parse(data);
-                translations = _translation.getMergedTranslations(Translations.flatten(json), isDefaultLang);
-            }
-            catch (err) {
-                translations = _translation.getMergedTranslations({}, isDefaultLang);
-            }
-
-            stats = _translation.getStats();
-            statsString = lang + " statistics: " +
-                " Updated: " + stats.updated +
-                " / Deleted: " + stats.deleted +
-                " / New: " + stats.new;
-            gutil.log(statsString);
-
-            return translations;
-    }
+    /**
+     * Prepare merge process
+     */
+    var merge = new MergeTranslations(options);
 
     /**
      * Gulp Angular Translate start processing
@@ -123,7 +95,7 @@ function angularTranslate (options) {
 
         var translations = {};
         options.lang.forEach(function (lang) {
-            translations = mergeTranslations(results, lang, destinationPath);
+            translations = merge.process(results, lang);
             self.push(new gutil.File({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
