@@ -14,10 +14,11 @@ var Translations = require('./translations');
 function MergeTranslations(options) {
     /* jshint validthis: true */
     this.defaultLang = options.defaultLang || '.';
+    this.destinationPath = options.dest || './i18nextract';
     this.json = {};
     this.nullEmpty = options.nullEmpty || false;
+    this.prefix = options.prefix || '';
     this.safeMode = !!options.safeMode;
-    this.destinationPath = options.dest || './i18nextract';
     this.translations = {};
     this.tree = options.namespace || false;
 }
@@ -39,7 +40,7 @@ MergeTranslations.prototype.process = function(results, lang) {
 
     try {
         var data = fs
-            .readFileSync(path.join(this.destinationPath, lang + '.json'));
+            .readFileSync(path.join(this.destinationPath, this.prefix + lang + '.json'));
         this.json = stringify(data);
         this.translations = _translation
             .getMergedTranslations(Translations.flatten(this.json), this.isDefaultLang);

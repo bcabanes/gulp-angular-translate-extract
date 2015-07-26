@@ -40,6 +40,7 @@ function angularTranslate (options) {
      */
     var destinationPath = options.dest || './i18nextract',
         firstFile,
+        prefix = options.prefix || '',
         results = {};
 
     /**
@@ -90,7 +91,7 @@ function angularTranslate (options) {
             self.push(new gutil.File({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
-                path: path.join(destinationPath, lang + '.json'),
+                path: path.join(destinationPath, prefix + lang + '.json'),
                 contents: new Buffer(Helpers.customStringify(translations))
             }));
         });
