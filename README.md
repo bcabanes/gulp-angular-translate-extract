@@ -65,7 +65,8 @@ $translate('TRANSLATION')
 ```
 
 ```javascript
-$translate.instant('TRANSLATION')`
+$translate.instant('TRANSLATION')
+```
 
 ```javascript
 $translate(['TRANSLATION', 'TRANSLATION_1'])
