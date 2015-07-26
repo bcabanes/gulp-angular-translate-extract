@@ -3,10 +3,10 @@ Gulp version of [grunt-angular-translate](https://github.com/angular-translate/g
 Simply extract all the translation keys for [angular-translate](https://github.com/PascalPrecht/angular-translate) project created by [Pascal Precht](https://github.com/PascalPrecht).
 
 ## Getting started
-Install this gulp plugin next to your project. Require [gulpjs][getting_started].
+Install this gulp plugin next to your project. Require [gulpjs](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md).
 
 ```bash
-$ npm install gulp-angular-translate
+$ npm install gulp-angular-translate-extract
 ```
 
 Then you can use the gulp plugin inside your gulp tasks, as follow:
@@ -40,25 +40,36 @@ To know all options available, please read the documentation ([here](#Options)).
 
 #### Directives
 
-`<a href="#" translate>TRANSLATION</a>`
+```html
+<a href="#" translate>TRANSLATION</a>
+```
 
 #### Directives plural (custom attribute angular-plural-extract to automatize extraction)
 
-`<span translate="TRANSLATION_KEY" angular-plural-extract="['TEXT FOR ONE','# TEXT FOR OTHER']" translate-values="{NB: X}" translate-interpolation="messageformat"></span>`
+```html
+<span translate="TRANSLATION_KEY" angular-plural-extract="['TEXT FOR ONE','# TEXT FOR OTHER']" translate-values="{NB: X}" translate-interpolation="messageformat"></span>
+```
 
 ### Javascript
 
 #### Filter
 
-`$filter("translate")("TRANSLATION")`
+```javascript
+filter("translate")("TRANSLATION")
+```
 
 #### Service angular-translate
 
-`$translate('TRANSLATION')`
+```javascript
+$translate('TRANSLATION')
+```
 
-`$translate.instant('TRANSLATION')`
+```javascript
+$translate.instant('TRANSLATION')`
 
-`$translate(['TRANSLATION', 'TRANSLATION_1'])`
+```javascript
+$translate(['TRANSLATION', 'TRANSLATION_1'])
+```
 
 ## Configuration
 
@@ -77,7 +88,7 @@ This is all options supported by gulp-angular-translate:
 - [safeMode](#safeMode)
 - [stringifyOptions](#stringifyOptions)
 
-#### nullEmpty (v0.2.6)
+#### nullEmpty
 
 Type: `Boolean`
 Default: `false`
@@ -86,7 +97,7 @@ Example: `true`
 
 If set to true, it will replace all final empty translations by *null* value.
 
-#### namespace (v0.2.6)
+#### namespace
 
 Type: `Boolean`
 Default: `false`
@@ -114,7 +125,7 @@ Default: `{ startDelimiter: '{{', endDelimiter: '}}' }`
 Example: `{ startDelimiter: '[[', endDelimiter: ']]' }`
 
 Define interpolation symbol use for your angular application.
-The angulars docs about ($interpolateProvider)[http://docs.angularjs.org/api/ng.$interpolateProvider] explain how you can configure the interpolation markup.
+The angular's docs about ($interpolateProvider)[http://docs.angularjs.org/api/ng.$interpolateProvider] explain how you can configure the interpolation markup.
 
 #### defaultLang
 
