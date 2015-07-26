@@ -4,12 +4,12 @@ var gutil = require('gulp-util');
 
 var Helpers = require('./helpers.js');
 
-function ExtractTranslations (interpolation, customRegex, content) {
+function ExtractTranslations (options, content) {
     /* jshint validthis: true */
     var self = this;
     this.content = content;
-    this.customRegex = customRegex;
-    this.interpolation = interpolation || {
+    this.customRegex = _.isArray(options.customRegex) ? options.customRegex : [];
+    this.interpolation = options.interpolation || {
         startDelimiter: '{{',
         endDelimiter: '}}'
     };
@@ -165,7 +165,7 @@ ExtractTranslations.prototype.extract = function (regexName, regex, content) {
         regexName !== "JavascriptServiceArrayDoubleQuote") {
             self.results[translationKey] = translationDefaultValue;
         }
-        
+
     }
 };
 

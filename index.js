@@ -38,15 +38,7 @@ function angularTranslate (options) {
     /**
      * Set all needed variables
      */
-    var defaultLang = options.defaultLang || '.',
-        destinationPath = options.dest || './i18nextract',
-        nullEmpty = options.nullEmpty || false,
-        namespace = options.namespace || false,
-        prefix = options.prefix || '',
-        safeMode = options.safeMode ? true : false,
-        suffix = options.suffix || '.json',
-        customRegex = _.isArray(options.customRegex) ? options.customRegex : [],
-        stringify_options = options.stringifyOptions || null;
+    var destinationPath = options.dest || './i18nextract';
 
     var firstFile,
         results = {};
@@ -80,7 +72,7 @@ function angularTranslate (options) {
              * Start extraction of translations
              */
             var content = file.contents.toString();
-            var extract = new ExtractTranslations(options.interpolation, customRegex, content);
+            var extract = new ExtractTranslations(options, content);
             _.assign(results, extract.process());
         }
 
