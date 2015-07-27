@@ -34,9 +34,13 @@ To know all options available, please read the documentation ([here](#Options)).
 
 #### Filters
 
-`{{'TRANSLATION' | translate}}`
+```html
+{{'TRANSLATION' | translate}}
+```
 
-`{{'TRANSLATION' | translate:XXXXXX}}`
+```html
+{{'TRANSLATION' | translate:XXXXXX}}
+```
 
 #### Directives
 
@@ -126,7 +130,7 @@ Default: `{ startDelimiter: '{{', endDelimiter: '}}' }`
 Example: `{ startDelimiter: '[[', endDelimiter: ']]' }`
 
 Define interpolation symbol use for your angular application.
-The angular's docs about ($interpolateProvider)[http://docs.angularjs.org/api/ng.$interpolateProvider] explain how you can configure the interpolation markup.
+The angular's docs about [$interpolateProvider](http://docs.angularjs.org/api/ng.$interpolateProvider) explain how you can configure the interpolation markup.
 
 #### defaultLang
 
@@ -170,7 +174,7 @@ Default: `""`
 
 Example: `"project_"`
 
-Set prefix to output filenames (cf [angular-translate#static-files][https://github.com/PascalPrecht/angular-translate/wiki/Asynchronous-loading#using-extension-static-files-loader]).
+Set prefix to output filenames (cf [angular-translate#static-files](https://github.com/PascalPrecht/angular-translate/wiki/Asynchronous-loading#using-extension-static-files-loader)).
 
 #### suffix
 
@@ -179,7 +183,7 @@ Default:  `""`
 
 Example: `".json"`
 
-Set suffix to output filenames (cf [angular-translate#static-files][https://github.com/PascalPrecht/angular-translate/wiki/Asynchronous-loading#using-extension-static-files-loader]).
+Set suffix to output filenames (cf [angular-translate#static-files](https://github.com/PascalPrecht/angular-translate/wiki/Asynchronous-loading#using-extension-static-files-loader)).
 
 #### dest
 
