@@ -82,8 +82,8 @@ $translate(['TRANSLATION', 'TRANSLATION_1'])
 
 This is all options supported by gulp-angular-translate:
 
-- [nullEmpty](#nullempty-v026)
-- [namespace](#namespace-v026)
+- [nullEmpty](#nullempty)
+- [namespace](#namespace)
 - [interpolation](#interpolation)
 - [defaultLang](#defaultLang)
 - [lang](#lang)
@@ -91,7 +91,7 @@ This is all options supported by gulp-angular-translate:
 - [suffix](#suffix)
 - [dest](#dest)
 - [safeMode](#safeMode)
-- [stringifyOptions](#stringifyOptions)
+- [stringifyOptions](#stringifyoptions)
 
 #### nullEmpty
 
