@@ -15,7 +15,8 @@
                 //     startDelimiter: '[[',
                 //     endDelimiter: ']]'
                 // }
-                // namespace: true
+                // namespace: true,
+                // stringifyOptions: true,
                 // nullEmpty: true
                 // dest: './destinationTest'
             }))
