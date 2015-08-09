@@ -110,6 +110,10 @@ Default: `false`
 Example: `true`
 
 If set to true, it will organize output JSON like the following.
+
+> It is important that, when this option is set to `true`, all your tokens __MUST HAVE__ a dot `.` namespace's delimiter.
+The token `noNamespace` is invalid contrary to `has.namespace` which is valid.
+
 `````
 {
   "MODULE": {

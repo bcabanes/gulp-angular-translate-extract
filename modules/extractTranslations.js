@@ -1,8 +1,17 @@
 'use strict';
 var _ = require('lodash');
+var chalk = require('chalk');
 var gutil = require('gulp-util');
 
+/**
+ * Interns
+ */
 var Helpers = require('./helpers.js');
+
+/**
+ * Constants
+ */
+var PLUGIN_NAME = 'gulp-angular-translate-extract';
 
 function ExtractTranslations (options, content) {
     /* jshint validthis: true */
@@ -13,6 +22,7 @@ function ExtractTranslations (options, content) {
         startDelimiter: '{{',
         endDelimiter: '}}'
     };
+    this.namespace = (options.namespace) ? options.namespace : false;
 
     // Regexs that will be executed on files
     this.regexs = {
@@ -122,8 +132,15 @@ ExtractTranslations.prototype.extract = function (regexName, regex, content) {
         }
 
         // Avoid empty translation
-        if (translationKey === "") {
+        if (translationKey === "" || translationKey === undefined) {
             return;
+        }
+
+        if (this.namespace && translationKey.split('.').length < 2) {
+            throw new Error(chalk.red(
+                'Namespace option need tokens with "." delimiter.' +
+                '\n Your token conflicts with namespaces: ') +
+                translationKey + chalk.red('.\n'));
         }
 
         switch (regexName) {
