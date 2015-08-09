@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular-translate-extract",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Gulp version of grunt-angular-translate. Simply extract all the translation keys for angular-translate project created by Pascal Precht.",
   "main": "index.js",
   "scripts": {
@@ -12,14 +12,19 @@
   },
   "keywords": [
     "gulpplugin",
-    "AngularJS",
+    "angularJS",
+    "angular",
     "angular-translate",
     "gulp",
     "javascript",
     "js",
     "translate",
     "i18n",
-    "localisation"
+    "l10n",
+    "localisation",
+    "translation",
+    "internationalization",
+    "internationalisation"
   ],
   "author": "Ben",
   "license": "MIT",
