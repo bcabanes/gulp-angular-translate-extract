@@ -1,6 +1,7 @@
 'use strict';
 var _ = require('lodash');
 var chalk = require('chalk');
+var flatten = require('flat');
 var fs = require('fs');
 var gutil = require('gulp-util');
 var path = require('path');
@@ -42,7 +43,7 @@ MergeTranslations.prototype.process = function(results, lang) {
     try {
         var data = fs
             .readFileSync(path.join(this.destinationPath, this.prefix + lang + '.json'), 'utf-8');
-        this.json = JSON.parse(String(data));
+        this.json = flatten(JSON.parse(String(data)));
         this.translations = _translation
             .getMergedTranslations(this.json, this.isDefaultLang);
     }
