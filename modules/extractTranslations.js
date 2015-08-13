@@ -30,6 +30,8 @@ function ExtractTranslations (options, content) {
         commentDoubleQuote: '\\/\\*\\s*i18nextract\\s*\\*\\/"((?:\\\\.|[^"\\\\])*)"',
         HtmlFilterSimpleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlFilterDoubleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*"((?:\\\\.|[^"\\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterSimpleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterDoubleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlDirective: '<[^>]*translate[^{>]*>([^<]*)<\/[^>]*>',
         HtmlDirectiveStandalone: 'translate="((?:\\\\.|[^"\\\\])*)"',
         HtmlDirectivePluralLast: 'translate="((?:\\\\.|[^"\\\\])*)".*angular-plural-extract="((?:\\\\.|[^"\\\\])*)"',
@@ -64,7 +66,9 @@ ExtractTranslations.prototype.process = function () {
         switch (i) {
             // Case filter HTML simple/double quoted
             case "HtmlFilterSimpleQuote":
+            case "HtmlFilterSimpleQuoteOneTimeBinding":
             case "HtmlFilterDoubleQuote":
+            case "HtmlFilterDoubleQuoteOneTimeBinding":
             case "HtmlDirective":
             case "HtmlDirectivePluralLast":
             case "HtmlDirectivePluralFirst":
@@ -146,6 +150,7 @@ ExtractTranslations.prototype.extract = function (regexName, regex, content) {
         switch (regexName) {
             case "commentSimpleQuote":
             case "HtmlFilterSimpleQuote":
+            case "HtmlFilterSimpleQuoteOneTimeBinding":
             case "JavascriptServiceSimpleQuote":
             case "JavascriptServiceInstantSimpleQuote":
             case "JavascriptFilterSimpleQuote":
@@ -154,6 +159,7 @@ ExtractTranslations.prototype.extract = function (regexName, regex, content) {
                 break;
             case "commentDoubleQuote":
             case "HtmlFilterDoubleQuote":
+            case "HtmlFilterDoubleQuoteOneTimeBinding":
             case "JavascriptServiceDoubleQuote":
             case "JavascriptServiceInstantDoubleQuote":
             case "JavascriptFilterDoubleQuote":
