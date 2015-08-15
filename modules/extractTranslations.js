@@ -23,6 +23,7 @@ function ExtractTranslations (options, content) {
         endDelimiter: '}}'
     };
     this.namespace = (options.namespace) ? options.namespace : false;
+    this.verbose = (options.verbose) ? options.verbose : false;
 
     // Regexs that will be executed on files
     this.regexs = {
@@ -99,9 +100,11 @@ ExtractTranslations.prototype.process = function () {
 ExtractTranslations.prototype.extract = function (regexName, regex, content) {
     var self = this;
     var r;
-    gutil.log('----------------------------------------------');
-    gutil.log('Process extraction with regex : "' + regexName + '"');
-    gutil.log(regex);
+    if (this.verbose) {
+        gutil.log('----------------------------------------------');
+        gutil.log('Process extraction with regex : "' + regexName + '"');
+        gutil.log(regex);
+    }
 
     regex.lastIndex = 0;
 
