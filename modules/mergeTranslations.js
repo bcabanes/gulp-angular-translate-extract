@@ -23,6 +23,7 @@ function MergeTranslations(options) {
     this.suffix = options.suffix || '.json';
     this.translations = {};
     this.tree = options.namespace || false;
+    this.verbose = options.verbose || false;
 }
 
 MergeTranslations.prototype.process = function(results, lang) {
@@ -52,7 +53,9 @@ MergeTranslations.prototype.process = function(results, lang) {
             .getMergedTranslations({}, this.isDefaultLang);
     }
 
-    this.logStatistics(_translation.getStats(), lang);
+    if (this.verbose) {
+        this.logStatistics(_translation.getStats(), lang);
+    }
     return this.translations;
 };
 
