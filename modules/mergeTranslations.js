@@ -43,7 +43,8 @@ MergeTranslations.prototype.process = function(results, lang) {
 
     try {
         var data = fs
-            .readFileSync(path.join(this.destinationPath, this.prefix + lang + '.json'), 'utf-8');
+            .readFileSync(path.join(this.destinationPath,
+                                    this.prefix + lang + this.suffix), 'utf-8');
         this.json = flatten(JSON.parse(String(data)));
         this.translations = _translation
             .getMergedTranslations(this.json, this.isDefaultLang);
