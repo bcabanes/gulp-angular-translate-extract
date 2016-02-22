@@ -39,7 +39,7 @@ MergeTranslations.prototype.process = function(results, lang) {
     /**
      * Default language test
      */
-    this.isDefaultLang = (this.defaultLang === lang);
+    this.isDefaultLang = (this.defaultLang === lang) || (this.defaultLang === "*");
 
     try {
         var data = fs
