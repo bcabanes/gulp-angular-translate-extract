@@ -18,9 +18,9 @@
                 // namespace: true,
                 // stringifyOptions: true,
                 // nullEmpty: true
-                // dest: './destinationTest'
+                 dest: './dest/i18nextract/'
             }))
-            .pipe(gulp.dest('dest'));
+            .pipe(gulp.dest('./'));
     }
 
     gulp.task('default', extractTranslations);
