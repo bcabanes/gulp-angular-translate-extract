@@ -35,6 +35,7 @@ function ExtractTranslations (options, content) {
         HtmlFilterDoubleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlDirective: '<[^>]*translate[^{>]*>([^<]*)<\/[^>]*>',
         HtmlDirectiveStandalone: 'translate="((?:\\\\.|[^"\\\\])*)"',
+        HtmlDirectiveAttrStandalone: 'translate-attr-[^=\\s]*="((?:\\\\.|[^"\\\\])*)"',
         HtmlDirectivePluralLast: 'translate="((?:\\\\.|[^"\\\\])*)".*angular-plural-extract="((?:\\\\.|[^"\\\\])*)"',
         HtmlDirectivePluralFirst: 'angular-plural-extract="((?:\\\\.|[^"\\\\])*)".*translate="((?:\\\\.|[^"\\\\])*)"',
         HtmlNgBindHtml: 'ng-bind-html="\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*"',
