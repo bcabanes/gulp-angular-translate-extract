@@ -5,7 +5,7 @@
     var angularTranslate = require('./');
 
     function extractTranslations() {
-        return gulp.src('fixtures/*.html')
+        return gulp.src(['fixtures/*.html', 'fixtures/*.js'])
             .pipe(angularTranslate({
                 lang: ['fr_FR', 'en_CA'],
                 // suffix: '.json'
@@ -18,9 +18,8 @@
                 // namespace: true,
                 // stringifyOptions: true,
                 // nullEmpty: true
-                // dest: './destinationTest'
             }))
-            .pipe(gulp.dest('dest'));
+            .pipe(gulp.dest('./i18nextract'));
     }
 
     gulp.task('default', extractTranslations);
