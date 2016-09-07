@@ -17,7 +17,7 @@ function ExtractTranslations (options, content) {
     /* jshint validthis: true */
     var self = this;
     this.content = content;
-    this.customRegex = _.isArray(options.customRegex) ? options.customRegex : [];
+    this.customRegex = options.customRegex || {};
     this.interpolation = options.interpolation || {
         startDelimiter: '{{',
         endDelimiter: '}}'
@@ -29,15 +29,15 @@ function ExtractTranslations (options, content) {
     this.regexs = {
         commentSimpleQuote: '\\/\\*\\s*i18nextract\\s*\\*\\/\'((?:\\\\.|[^\'\\\\])*)\'',
         commentDoubleQuote: '\\/\\*\\s*i18nextract\\s*\\*\\/"((?:\\\\.|[^"\\\\])*)"',
-        HtmlFilterSimpleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
-        HtmlFilterDoubleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*"((?:\\\\.|[^"\\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
-        HtmlFilterSimpleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
-        HtmlFilterDoubleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterSimpleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate\\s*(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterDoubleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*"((?:\\\\.|[^"\\\\\])*)"\\s*\\|\\s*translate\\s*(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterSimpleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate\\s*(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
+        HtmlFilterDoubleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\|\\s*translate\\s*(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlDirective: '<[^>]*translate[^{>]*>([^<]*)<\/[^>]*>',
         HtmlDirectiveStandalone: 'translate="((?:\\\\.|[^"\\\\])*)"',
         HtmlDirectivePluralLast: 'translate="((?:\\\\.|[^"\\\\])*)".*angular-plural-extract="((?:\\\\.|[^"\\\\])*)"',
         HtmlDirectivePluralFirst: 'angular-plural-extract="((?:\\\\.|[^"\\\\])*)".*translate="((?:\\\\.|[^"\\\\])*)"',
-        HtmlNgBindHtml: 'ng-bind-html="\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*"',
+        HtmlNgBindHtml: 'ng-bind-html="\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate\\s*(:.*?)?\\s*"',
         JavascriptServiceSimpleQuote: '\\$translate\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'[^\\)]*.*\\)',
         JavascriptServiceDoubleQuote: '\\$translate\\(\\s*"((?:\\\\.|[^"\\\\])*)"[^\\)]*.*\\)',
         JavascriptServiceArraySimpleQuote: '\\$translate\\((?:\\s*(\\[\\s*(?:(?:\'(?:(?:\\.|[^.*\'\\\\])*)\')\\s*,*\\s*)+\\s*\\])\\s*).*\\)',
@@ -47,17 +47,10 @@ function ExtractTranslations (options, content) {
         JavascriptFilterSimpleQuote: '\\$filter\\(\\s*\'translate\'\\s*\\)\\s*\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'[^\\)]*\\)',
         JavascriptFilterDoubleQuote: '\\$filter\\(\\s*"translate"\\s*\\)\\s*\\(\\s*"((?:\\\\.|[^"\\\\\])*)"[^\\)]*\\)'
     };
-    this.setCustomRegex();
+    _.extend(this.regexs, this.customRegex);
 
     this.results = {};
 }
-
-ExtractTranslations.prototype.setCustomRegex = function() {
-    var self = this;
-    _.forEach(this.customRegex, function (regex, key) {
-        self.regexs['others_' + key] = regex;
-    });
-};
 
 ExtractTranslations.prototype.process = function () {
     var _regex;
@@ -182,14 +175,14 @@ ExtractTranslations.prototype.extract = function (regexName, regex, content) {
 
                 key.forEach(function(item){
                     item = item.replace(/\\\"/g, '"').trim();
-                    self.results[item] = translationDefaultValue;
+                    self.results[item] = item;
                 });
                 break;
         }
 
         if( regexName !== "JavascriptServiceArraySimpleQuote" &&
         regexName !== "JavascriptServiceArrayDoubleQuote") {
-            self.results[translationKey] = translationDefaultValue;
+            self.results[translationKey] = translationKey;
         }
 
     }
