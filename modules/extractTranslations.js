@@ -22,6 +22,7 @@ function ExtractTranslations (options, content) {
         startDelimiter: '{{',
         endDelimiter: '}}'
     };
+    this.interpolationEscapeChar = _.first(this.interpolation.startDelimiter);
     this.namespace = (options.namespace) ? options.namespace : false;
     this.verbose = (options.verbose) ? options.verbose : false;
 
@@ -33,11 +34,11 @@ function ExtractTranslations (options, content) {
         HtmlFilterDoubleQuote: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '\\s*"((?:\\\\.|[^"\\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlFilterSimpleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
         HtmlFilterDoubleQuoteOneTimeBinding: Helpers.escapeRegExp(this.interpolation.startDelimiter) + '::\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\|\\s*translate(:.*?)?\\s*\\)' + Helpers.escapeRegExp(this.interpolation.endDelimiter),
-        HtmlDirective: '<[^>]*translate[^{>]*>([^<]*)<\/[^>]*>',
-        HtmlDirectiveStandalone: 'translate="((?:\\\\.|[^"\\\\])*)"',
-        HtmlDirectivePluralLast: 'translate="((?:\\\\.|[^"\\\\])*)".*angular-plural-extract="((?:\\\\.|[^"\\\\])*)"',
-        HtmlDirectivePluralFirst: 'angular-plural-extract="((?:\\\\.|[^"\\\\])*)".*translate="((?:\\\\.|[^"\\\\])*)"',
-        HtmlNgBindHtml: 'ng-bind-html="\\s*\'((?:\\\\.|[^\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*"',
+        HtmlDirective: '<[^>]*translate[^{>]*>([^' + this.interpolationEscapeChar + '<]*)<\/[^>]*>',
+        HtmlDirectiveStandalone: 'translate="((?:\\\\.|[^' + this.interpolationEscapeChar + '"\\\\])*)"',
+        HtmlDirectivePluralLast: 'translate="((?:\\\\.|[^' + this.interpolationEscapeChar + '"\\\\])*)".*angular-plural-extract="((?:\\\\.|[^"\\\\])*)"',
+        HtmlDirectivePluralFirst: 'angular-plural-extract="((?:\\\\.|[^"\\\\])*)".*translate="((?:\\\\.|[^' + this.interpolationEscapeChar + '"\\\\])*)"',
+        HtmlNgBindHtml: 'ng-bind-html="\\s*\'((?:\\\\.|[^' + this.interpolationEscapeChar + '\'\\\\])*)\'\\s*\\|\\s*translate(:.*?)?\\s*"',
         JavascriptServiceSimpleQuote: '\\$translate\\(\\s*\'((?:\\\\.|[^\'\\\\])*)\'[^\\)]*.*\\)',
         JavascriptServiceDoubleQuote: '\\$translate\\(\\s*"((?:\\\\.|[^"\\\\])*)"[^\\)]*.*\\)',
         JavascriptServiceArraySimpleQuote: '\\$translate\\((?:\\s*(\\[\\s*(?:(?:\'(?:(?:\\.|[^.*\'\\\\])*)\')\\s*,*\\s*)+\\s*\\])\\s*).*\\)',
