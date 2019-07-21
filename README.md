@@ -143,7 +143,7 @@ Default: `undefined`
 
 Example: `"en_CA"`
 
-Define the default language. For default language, by default the key will be set as value.
+Define the default language. For default language, by default the key will be set as value. A wildcard `"*"` can be used to apply this for all languages.
 
 #### customRegex
 
